@@ -2,19 +2,16 @@
 #include "Rigidbody.h"
 class SpaceshipLocomotion
 {
-	SpaceshipLocomotion();
-	float thrust;		
-	float maxThrust;
-	float thrustSpeed;
-
-	float turn;
-	float maxTurn;
-	float turnSpeed;
-
+	float vertThrust;		
+	float horzThrust;
+	
 	float speed;
+	float maxSpeed;
 
 public:
-	void doThrust(float deltaTime);
-	void doTurn(float deltaTime);
-	void integrate(Rigidbody &rigidbody);
+	SpaceshipLocomotion();
+
+	void doThrust(float value);
+	void doTurn(float value);
+	void update(Rigidbody &rigidbody, float deltaTime);
 };
