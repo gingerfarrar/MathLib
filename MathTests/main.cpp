@@ -51,5 +51,20 @@ int main()
 
 	assert((cross(vec3{ 1,0,0 }, vec3{ 0,1,0 }) == vec3{ 0,0,1 }));
 	assert((cross(vec3{ 0,1,0 }, vec3{ 1,0,0 }) == vec3{ 0,0,-1 }));
+
+	assert(fequals(lerp(.23, 124, 0), .23));
+	assert(fequals(lerp(0, 1, .5f), .5f));
+
+	assert(fequals(quadBezier(15, 40, 21, 0), 15));
+	assert(fequals(quadBezier(15, 40, 21, 1), 21));
+
+	assert(fequals(hermiteSpline(15, 40, 21, 10, 0), 15));
+	assert(fequals(hermiteSpline(15, 40, 21, 10, 1), 21));
+
+	assert(fequals(cardinalSpline(15, 40, 21, .2f, 0), 15));
+	assert(fequals(cardinalSpline(15, 40, 21, .1f, 1), 21));
+
+	assert(fequals(catRomSpline(15, 40, 21, 0), 15));
+	assert(fequals(catRomSpline(15, 40, 21, 1), 21));
 	return 0;
 }

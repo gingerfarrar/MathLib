@@ -2,36 +2,52 @@
 #include "vec2.h"
 #include "Transform.h"
 #include "flops.h"
+#include "Rigidbody.h"
 using namespace sfw;
 
 void main()
 {
 	initContext();
-	Transform trans(400,300);
+	Transform playerTransform(400,300);
+	Rigidbody playerRigidbody;
+	playerRigidbody.velocity = vec2{ 0,0 };
+	float W = 800, H = 600;
 
-	int j = int(4);
-	int k(4);
-	int l = (4);
-	int n{ 4 };
-
-	Transform tl = Transform(400, 300);
-	Transform tn = { 400,300 };
-	Transform tm( 400,300 );
-	Transform tq{ 400,300 };
-
-	//trans.position = vec2{ 400,300 };
-	trans.facing = deg2rad(45);
-	trans.scale = vec2{ 24,8 };
-
-	vec2 basis = { 40,0 };
-	float ang_vec = 0;
 	while (stepContext())
 	{
-		vec2 incident = fromAngle(ang_vec) * 40;
-		float proj = dot(basis, normal(incident));
-		drawLine(400, 300, 400 + basis.x, 300 + basis.y, BLACK);
-		trans.facing -= getDeltaTime();
-		trans.debugDraw();
-	}
-	termContext();
+		
+
+		float deltaTime = getDeltaTime();
+
+		if (getKey('W'))		playerRigidbody.acceleration.y += 5.0f;
+		if (getKey('A'))		playerRigidbody.acceleration.x -= 5.0f;
+		if (getKey('S'))		playerRigidbody.acceleration.y -= 5.0f;
+		if (getKey('D'))		playerRigidbody.acceleration.x += 5.0f;
+
+
+		if (getKey('Q'))		playerRigidbody.angularAcceleration += 1.0f;
+		if (getKey('E'))		playerRigidbody.angularAcceleration -= 1.0f;
+		if (playerTransform.position.x < 0)		playerTransform.position.x = W;
+		else if (playerTransform.position.x > W)	playerTransform.position.x = 0;
+		if (playerTransform.position.y < 0)		playerTransform.position.y = H;
+		else if (playerTransform.position.y > H)	playerTransform.position.y = 0;
+
+		playerRigidbody.integrate(playerTransform, deltaTime);
+		playerTransform.debugDraw();
+		/*for (int i = 0; i < 100; ++i)
+		{
+			float x1 = i / 100.f;
+			float y1 = HardAngle(x1);
+
+			float x2 = (i + 1) / 100.f;
+			float y2 = HardAngle(x2);
+			x1 *= 400;
+			x2 *= 400;
+			y1 *= 400;
+			y2 *= 400;
+			drawLine(x1, y1, x2, y2);
+		}*/
+		
+	  }
+	sfw::termContext();
 }
