@@ -27,10 +27,10 @@ void main()
 		else if (playerTransform.position.y > H)	playerTransform.position.y = 0;
 
 		playerCtrl.update(playerLoco);
-		playerLoco.update(playerRigidbody, deltaTime);
+		playerLoco.update(playerTransform, playerRigidbody);
 		playerRigidbody.integrate(playerTransform, deltaTime);
 		playerTransform.debugDraw();
-		
+		playerRigidbody.debugDraw(playerTransform);
 	  }
 	sfw::termContext();
 }

@@ -12,6 +12,11 @@ Transform::Transform(float x, float y, float w, float h, float a)
 	scale.y = h;
 	facing = a;
 }
+vec2 Transform::getUp() const
+{
+	return -perp(getDirection());
+}
+
 vec2 Transform::getDirection() const
 {
 	return fromAngle(facing);

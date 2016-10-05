@@ -5,15 +5,22 @@ class Rigidbody
 {
 public:
 	Rigidbody();
+
+	float mass, drag;
+
+	vec2 force, impulse;
 	vec2 velocity;
-	float angularVelocity; // change in rotation
 	vec2 acceleration;
+
+	float torque;
+	float angularVelocity;
 	float angularAcceleration;
 
 	void addForce(const vec2 &force);
 	void addImpulse(const vec2 &impulse);
-
 	void addTorque(float torque);
 
 	void integrate(Transform &trans, float deltaTime);
+
+	void debugDraw(const Transform &trans);
 };
