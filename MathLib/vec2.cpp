@@ -18,7 +18,6 @@ vec2 operator/(const vec2 &lhs, const vec2 &rhs)
 	return vec2{ lhs.x / rhs.x, lhs.y / rhs.y };
 }
 
-
 vec2 operator*(const vec2 &lhs, float rhs)
 {
 	return vec2{ lhs.x*rhs, lhs.y*rhs };
@@ -32,7 +31,6 @@ vec2 operator/(const vec2 &lhs, float rhs)
 {
 	return vec2{ lhs.x/rhs, lhs.y/rhs };
 }
-
 
 vec2 operator-(const vec2 &v)
 {
@@ -63,7 +61,6 @@ bool operator==(const vec2&lhs, const vec2 &rhs)
 {
 	return lhs.x == rhs.x && lhs.y == rhs.y;
 }
-
 
 float magnitude(const vec2 &v)
 {
@@ -143,4 +140,13 @@ vec2  catRomSpline(vec2 &start, vec2 &mid, vec2 &end, float alpha)
 	float h11 = tcub - tsq;
 	vec2 point = h00*start + h10*tan0 + h01 *mid + h11 * tan1;
 	return point;
+}
+
+float vec2::operator[](unsigned idx) const
+{
+	return v[idx];
+}
+float &vec2::operator[](unsigned idx)
+{
+	return v[idx];
 }
