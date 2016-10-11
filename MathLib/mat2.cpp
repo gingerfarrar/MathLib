@@ -3,10 +3,8 @@
 
 bool operator==(const mat2 & A, const mat2 & B)
 {
-	return fequals(A.m[0], B.m[0]) &&
-		   fequals(A.m[1], B.m[1]) &&
-		   fequals(A.m[2], B.m[2]) &&
-		   fequals(A.m[3], B.m[3]);
+	return A[0] == B[0] &&	A[1] == B[1];
+		   
 }
 bool operator!=(const mat2 & A, const mat2 & B)
 {
@@ -15,12 +13,12 @@ bool operator!=(const mat2 & A, const mat2 & B)
 mat2 operator+(const mat2 & A, const mat2 & B)
 {
 	return mat2{ A.m[0] + B.m[0],A.m[1] + B.m[1],
-		A.m[2] + B.m[2], A.m[3] + B.m[3] };
+				 A.m[2] + B.m[2],A.m[3] + B.m[3] };
 }
 mat2 operator-(const mat2 & A, const mat2 & B)
 {
 	return mat2{ A.m[0] - B.m[0],A.m[1] - B.m[1],
-		A.m[2] - B.m[2], A.m[3] - B.m[3] };
+				 A.m[2] - B.m[2],A.m[3] - B.m[3] };
 }
 mat2 operator-(const mat2 & A)
 {
