@@ -5,12 +5,12 @@ using namespace sfw;
 Transform::Transform(float x, float y, float w, float h, float a) 
 	
 {
-	position.x = x;
-	position.y = y;
+	m_position.x = x;
+	m_position.y = y;
 
-	scale.x = w;
-	scale.y = h;
-	facing = a;
+	m_scale.x = w;
+	m_scale.y = h;
+	m_facing = a;
 }
 vec2 Transform::getUp() const
 {
@@ -19,16 +19,29 @@ vec2 Transform::getUp() const
 
 vec2 Transform::getDirection() const
 {
-	return fromAngle(facing);
+	return fromAngle(m_facing);
 }
 void Transform::setDirection(const vec2 &dir)
 {
-	facing = angle(dir);
+	m_facing = angle(dir);
 }
-void Transform::debugDraw() const
+mat3 Transform::getLocalTransform() const
 {
-	drawCircle(position.x, position.y, 12, 12, 0x888888FF);
-	vec2 dirEnd = position + getDirection()*19;
-	vec2 upEnd = position - perp(getDirection()) * 35;
-	drawLine(position.x, position.y, dirEnd.x, dirEnd.y,MAGENTA);
+	mat3 S = scale(m_scale.x, m_scale.y);
+	mat3 T = translate(m_position.x, m_position.y);
+	mat3 R = rotation(m_facing);
+	return T*S*R;
+}
+
+void Transform::debugDraw(const mat3 &T) const
+{
+	
+	mat3 L = T * getLocalTransform();
+	vec3 pos = L[2];
+
+	vec3 right = pos + L*vec3{ 12,0,0 };
+	vec3 up    = pos + L*vec3{ 0,12,0 };
+	
+	drawLine(pos.x, pos.y, right.x, right.y,MAGENTA);
+	drawCircle(pos.x, pos.y, 12, 12, 0x888888FF);
 }

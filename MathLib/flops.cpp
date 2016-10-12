@@ -2,17 +2,21 @@
 #include <cmath>
 bool fequals(float lhs, float rhs)
 {
-	if(lhs < 0.0000001f && rhs < 0.0000001f)return true;
-	
+	// if the values are SOOOO close, or their difference is SOOO tiny
+	// then treat them as basically the same.
+	if(abs(lhs-rhs) < 0.0001f)
+		return true;
+	else 
+		return false;
 }
 
 float deg2rad(float deg)
 {
-	return deg*3.14 / 180;
+	return deg*3.14159265359 / 180;
 }
 float rad2deg(float rad)
 {
-	return rad * 180 / 3.14;
+	return rad * 180 / 3.14159265359;
 }
 
 float linearHalf(float x)

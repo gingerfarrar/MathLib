@@ -21,10 +21,10 @@ void main()
 	{	
 		float deltaTime = getDeltaTime();
 	
-		if (playerTransform.position.x < 0)		playerTransform.position.x = W;
-		else if (playerTransform.position.x > W)	playerTransform.position.x = 0;
-		if (playerTransform.position.y < 0)		playerTransform.position.y = H;
-		else if (playerTransform.position.y > H)	playerTransform.position.y = 0;
+		if (playerTransform.m_position.x < 0)		playerTransform.m_position.x = W;
+		else if (playerTransform.m_position.x > W)	playerTransform.m_position.x = 0;
+		if (playerTransform.m_position.y < 0)		playerTransform.m_position.y = H;
+		else if (playerTransform.m_position.y > H)	playerTransform.m_position.y = 0;
 
 		playerCtrl.update(playerLoco);
 		playerLoco.update(playerTransform, playerRigidbody);

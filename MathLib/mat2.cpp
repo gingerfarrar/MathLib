@@ -61,11 +61,12 @@ mat2 operator*(const mat2 & A, const mat2 & B)
 }
 float determinant(const mat2 & A)
 {
-	return  A.m[0] * A.m[2] - A.m[1] * A.m[3];
+	return  (A.m[0] * A.m[3]) - (A.m[1] * A.m[2]);
 }
 mat2 inverse(const mat2 &A)
 {
-	return mat2{1 / (A.m[0]*A.m[3] - A.m[2]*A.m[1])};
+	//return mat2{1 / determinant(A)};
+	return (1 / determinant(A)) * mat2 { A.m[3], -A.m[1], -A.m[2], A.m[0] };
 }
 
 vec2 mat2::operator[](unsigned idx) const
