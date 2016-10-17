@@ -1,5 +1,6 @@
 #include <cassert>
 #include <cstdio>
+#include <cmath>
 #include "Test.h"
 #include "vec2.h"
 #include "vec3.h"
@@ -28,13 +29,13 @@ int main()
 	////vector tests
 
 	assert((vec2{ 0,0 } == vec2{ 0,0 }));
-	assert((vec2{ 1,1 } + vec2{ -1,0 } == vec2{ 0, 1 }));
-	assert((vec2{ 1,1 } - vec2{ 1,1 } == vec2{ 0, 0 }));
-	assert((vec2{ 1,1 } * vec2{ 1,1 } == vec2{ 1, 1 }));
+	assert((vec2{ 1,1 } +vec2{ -1,0 } == vec2{ 0, 1 }));
+	assert((vec2{ 1,1 } -vec2{ 1,1 } == vec2{ 0, 0 }));
+	assert((vec2{ 1,1 } *vec2{ 1,1 } == vec2{ 1, 1 }));
 	assert((vec2{ 1,1 } / vec2{ 1,1 } == vec2{ 1, 1 }));
 
-	assert((vec2{ 1,1 } * 1.f == vec2{ 1,1 }));
-	assert(( 1.f * vec2{ 1,1 } == vec2{ 1,1 }));
+	assert((vec2{ 1,1 } *1.f == vec2{ 1,1 }));
+	assert((1.f * vec2{ 1,1 } == vec2{ 1,1 }));
 	assert((vec2{ 1,1 } / 1.f == vec2{ 1,1 }));
 
 	assert((-vec2{ 1,1 } == vec2{ -1,-1 }));
@@ -91,6 +92,7 @@ int main()
 	assert((scale(5, 1)* j == vec3{ 10,5,1 }));
 	assert((rotation(deg2rad(90))*j == vec3{ -5,2,1 }));
 	assert((translate(0, 3)*j == vec3{ 2,8,1 }));
-
+	vec3 test = rotation(deg2rad(-90)) * translate(10, 0) * rotation(deg2rad(45)) * translate(4, 0) *rotation(deg2rad(45)) * translate(6, 4) * translate(-6, 0) * vec3 { 0, 0, 1 };
+	assert((test == vec3{ 2 * sqrtf(2), -6 - 2 * sqrtf(2), 1 }));
 	return 0;
 }
