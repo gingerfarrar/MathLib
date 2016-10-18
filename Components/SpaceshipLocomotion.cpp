@@ -9,8 +9,8 @@ SpaceshipLocomotion::SpaceshipLocomotion()
 	breakPower = 10.0f;
 
 	turnspeed = 5.0f;
-	speed = 500.0f;
-	maxSpeed = 1000.0f;
+	speed = 50.0f;
+	maxSpeed = 100.0f;
 }
 void SpaceshipLocomotion::doThrust(float value)
 {
@@ -23,6 +23,10 @@ void SpaceshipLocomotion::doTurn(float value)
 void SpaceshipLocomotion::doStop(float value)
 {
 	stopAction += value;
+}
+void SpaceshipLocomotion::ST1update(const Transform &trans, Rigidbody &rigidbody)
+{
+
 }
 void SpaceshipLocomotion::update(const Transform &trans, Rigidbody &rigidbody)
 {

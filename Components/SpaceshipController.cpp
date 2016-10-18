@@ -1,5 +1,6 @@
 #include "SpaceshipController.h"
 #include "sfwdraw.h"
+
 using namespace sfw;
 
 SpaceshipController::SpaceshipController(unsigned CTR_LEFT, unsigned CTR_RIGHT,
@@ -16,7 +17,7 @@ void SpaceshipController::update(SpaceshipLocomotion & loco)
 	float vInput = 0.0f;
 	vInput -= getKey('S');
 	vInput += getKey('W');
-
+	
 	float bInput = getKey(' ');
 	loco.doStop(bInput);
 	loco.doTurn(hInput);

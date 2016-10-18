@@ -18,6 +18,6 @@ public:
 	void doTurn(float value);
 
 	void doStop(float value);
-
+	void ST1update(const Transform &trans, Rigidbody &rigidbody);
 	void update(const Transform &trans, Rigidbody &rigidbody);
 };
