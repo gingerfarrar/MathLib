@@ -11,6 +11,14 @@ void main()
 {
 	initContext();
 	Transform playerTransform(400,300);
+	Transform ST1(100, 0);
+	Transform ST2(100, 0);
+	Transform ST3(100, 0);
+
+	ST1.m_parent = &playerTransform;
+	ST2.m_parent = &ST1;
+	ST3.m_parent = &ST2;
+
 	Rigidbody playerRigidbody;
 	SpaceshipLocomotion playerLoco;
 	SpaceshipController playerCtrl;
@@ -29,7 +37,11 @@ void main()
 		playerCtrl.update(playerLoco);
 		playerLoco.update(playerTransform, playerRigidbody);
 		playerRigidbody.integrate(playerTransform, deltaTime);
-		playerTransform.debugDraw();
+
+		ST1.debugDraw();
+		ST2.debugDraw();
+		ST3.debugDraw();
+		
 		playerRigidbody.debugDraw(playerTransform);
 	  }
 	sfw::termContext();
