@@ -94,5 +94,16 @@ int main()
 	assert((translate(0, 3)*j == vec3{ 2,8,1 }));
 	vec3 test = rotation(deg2rad(-90)) * translate(10, 0) * rotation(deg2rad(45)) * translate(4, 0) *rotation(deg2rad(45)) * translate(6, 4) * translate(-6, 0) * vec3 { 0, 0, 1 };
 	assert((test == vec3{ 2 * sqrtf(2), -6 - 2 * sqrtf(2), 1 }));
+	vec2 WP[] = { {12, -8}, {15, 8}, {5,8}, {-22, -5}, {4, -2}, {-6, 9}, {18,88},{-22,-90} };
+	mat3 RES = translate(12, -8) * rotation(80);
+	for (int i = 0; i < 7; i++)
+	{
+		vec2 bet = WP[i + 1] - WP[i];
+		//mat3 R = rotation(angle(bet) - angle(RES[0].xy));
+		mat3 T = translate(magnitude(bet), 0);
+		/*??? RES = T * R * RES ???*/
+		//assert((RES[2].xy == WP[i + 1]));
+	}
+
 	return 0;
 }

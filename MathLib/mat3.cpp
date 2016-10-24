@@ -81,7 +81,13 @@ float determinant(const mat3 & A)
 }
 mat3 inverse(const mat3 &A)
 {
-	return mat3{ 1 / determinant(A)};
+	mat3 retval;
+
+	retval[0] = cross(A[1], A[2]);
+	retval[1] = cross(A[2], A[0]);
+	retval[2] = cross(A[0], A[1]);
+
+	return 1 / determinant(A) * transpose(retval);
 }
 
 vec3 mat3::operator[](unsigned idx) const
