@@ -6,7 +6,7 @@ class Rigidbody
 public:
 	Rigidbody();
 
-	float mass, drag;
+	float mass, drag, angulardrag;
 
 	vec2 force, impulse;
 	vec2 velocity;

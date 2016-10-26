@@ -72,16 +72,15 @@ void Transform::debugDraw(const mat3 &T) const
 	mat3 L = T * getGlobalTransform();
 	vec3 pos = L[2];
 	
-	vec3 right = L*vec3{ 10,0,1 };
-	vec3 up    = L*vec3{ 0,10,1 };
+	vec3 right = L*vec3{ 2,0,1 };
+	vec3 up    = L*vec3{ 0,2,1 };
 	
-	drawLine(pos.x, pos.y, right.x, right.y,MAGENTA);
-	drawLine(pos.x, pos.y, up.x, up.y, GREEN);
-	vec3 sgp = m_parent ? T * m_parent->getGlobalTransform()[2] : pos;	
-	drawLine(sgp.x, sgp.y, pos.x, pos.y, BLUE);
+	//drawLine(pos.x, pos.y, right.x, right.y,MAGENTA);
+	//drawLine(pos.x, pos.y, up.x, up.y, GREEN);
+	//vec3 sgp = m_parent ? T * m_parent->getGlobalTransform()[2] : pos;	
+	//drawLine(sgp.x, sgp.y, pos.x, pos.y, BLUE);
 
 	
-	drawCircle(L * Circle{ 0,0,10 }, 0x888888FF);
-	drawAABB(L * AABB{ 0,0,10,10 }, 0x888888FF);
-	//drawCircle(pos.x, pos.y, 12, 12, 0x888888FF);
+	
+	//drawCircle(pos.x, pos.y, 1, 1, 0x888888FF);
 }

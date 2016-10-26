@@ -8,6 +8,7 @@
 #include "mat2.h"
 #include "mat3.h"
 #include "shapes.h"
+#include "collision.h"
 int main()
 {
 	//assert(test_quad(0.f) == -7);
@@ -29,33 +30,33 @@ int main()
 	/////////////////////////////////////////////////////////////////////////
 	////vector tests
 
-	assert((vec2{ 0,0 } == vec2{ 0,0 }));
-	assert((vec2{ 1,1 } +vec2{ -1,0 } == vec2{ 0, 1 }));
-	assert((vec2{ 1,1 } -vec2{ 1,1 } == vec2{ 0, 0 }));
-	assert((vec2{ 1,1 } *vec2{ 1,1 } == vec2{ 1, 1 }));
-	assert((vec2{ 1,1 } / vec2{ 1,1 } == vec2{ 1, 1 }));
+	//assert((vec2{ 0,0 } == vec2{ 0,0 }));
+	//assert((vec2{ 1,1 } +vec2{ -1,0 } == vec2{ 0, 1 }));
+	//assert((vec2{ 1,1 } -vec2{ 1,1 } == vec2{ 0, 0 }));
+	//assert((vec2{ 1,1 } *vec2{ 1,1 } == vec2{ 1, 1 }));
+	//assert((vec2{ 1,1 } / vec2{ 1,1 } == vec2{ 1, 1 }));
 
-	assert((vec2{ 1,1 } *1.f == vec2{ 1,1 }));
-	assert((1.f * vec2{ 1,1 } == vec2{ 1,1 }));
-	assert((vec2{ 1,1 } / 1.f == vec2{ 1,1 }));
+	//assert((vec2{ 1,1 } *1.f == vec2{ 1,1 }));
+	//assert((1.f * vec2{ 1,1 } == vec2{ 1,1 }));
+	//assert((vec2{ 1,1 } / 1.f == vec2{ 1,1 }));
 
-	assert((-vec2{ 1,1 } == vec2{ -1,-1 }));
-	assert((+vec2{ 1,1 } == vec2{ +1,+1 }));
-	assert(fequals(dot(vec2{ 5,4 }, vec2{ 1,0 }), 5));
-	assert(fequals(dot(vec2{ 5,4 }, vec2{ 0,1 }), 4));
-	assert(fequals(1, .9999999f));
+	//assert((-vec2{ 1,1 } == vec2{ -1,-1 }));
+	//assert((+vec2{ 1,1 } == vec2{ +1,+1 }));
+	//assert(fequals(dot(vec2{ 5,4 }, vec2{ 1,0 }), 5));
+	//assert(fequals(dot(vec2{ 5,4 }, vec2{ 0,1 }), 4));
+	//assert(fequals(1, .9999999f));
 
-	assert((fequals(angleBetween(vec2{ 1,1 }, vec2{ 0,1 }), angle(vec2{ 1,1 }))));
+	//assert((fequals(angleBetween(vec2{ 1,1 }, vec2{ 0,1 }), angle(vec2{ 1,1 }))));
 
-	assert((fromAngle(0) == vec2{ 1,0 }));
+	//assert((fromAngle(0) == vec2{ 1,0 }));
 
-	assert((cross(vec3{ 1,0,0 }, vec3{ 0,1,0 }) == vec3{ 0,0,1 }));
-	assert((cross(vec3{ 0,1,0 }, vec3{ 1,0,0 }) == vec3{ 0,0,-1 }));
+	//assert((cross(vec3{ 1,0,0 }, vec3{ 0,1,0 }) == vec3{ 0,0,1 }));
+	//assert((cross(vec3{ 0,1,0 }, vec3{ 1,0,0 }) == vec3{ 0,0,-1 }));
 
-	assert(fequals(lerp(0, 1, .5f), .5f));
+	//assert(fequals(lerp(0, 1, .5f), .5f));
 
-	assert(fequals(quadBezier(15, 40, 21, 0), 15));
-	assert(fequals(quadBezier(15, 40, 21, 1), 21));
+	//assert(fequals(quadBezier(15, 40, 21, 0), 15));
+	//assert(fequals(quadBezier(15, 40, 21, 1), 21));
 
 
 	// TODO : Hermite might have a bug.
@@ -70,45 +71,38 @@ int main()
 	////////////////////////////////////////////////////////////////////
 	///////////////////matrix tests////////////////////////////////////
 
-	mat2 m0 = mat2{ 0,0,0,0 };
-	mat2 mI = mat2Identity();
-	mat2 t0 = mat2{ 4,3,2,1 };
+	//mat2 m0 = mat2{ 0,0,0,0 };
+	//mat2 mI = mat2Identity();
+	//mat2 t0 = mat2{ 4,3,2,1 };
 
-	assert(m0 == m0);
-	assert(mI * 2 == 2 * mI);
-	assert((mI * 2 == mat2{ 2,0,0,2 }));
-	assert(mI + m0 == mI);
-	assert(mI - mI == m0);
-	assert(mI * -1 == -mI);
+	//assert(m0 == m0);
+	//assert(mI * 2 == 2 * mI);
+	//assert((mI * 2 == mat2{ 2,0,0,2 }));
+	//assert(mI + m0 == mI);
+	//assert(mI - mI == m0);
+	//assert(mI * -1 == -mI);
 
-	assert(mI * mI == mI);
-	assert((mat2{ 1,2,3,4 }) * mI == (mat2{ 1,2,3,4 }));
+	//assert(mI * mI == mI);
+	//assert((mat2{ 1,2,3,4 }) * mI == (mat2{ 1,2,3,4 }));
 
-	assert(transpose(mI) == mI);
-	assert(inverse(mI) == mI);
-	assert(t0 * inverse(t0) == mI);
+	//assert(transpose(mI) == mI);
+	//assert(inverse(mI) == mI);
+	//assert(t0 * inverse(t0) == mI);
 
-	vec3 j = { 2,5,1 };
-	vec3 r = translate(0, 3)*j;
-	assert((scale(5, 1)* j == vec3{ 10,5,1 }));
-	assert((rotation(deg2rad(90))*j == vec3{ -5,2,1 }));
-	assert((translate(0, 3)*j == vec3{ 2,8,1 }));
-	vec3 test = rotation(deg2rad(-90)) * translate(10, 0) * rotation(deg2rad(45)) * translate(4, 0) *rotation(deg2rad(45)) * translate(6, 4) * translate(-6, 0) * vec3 { 0, 0, 1 };
-	assert((test == vec3{ 2 * sqrtf(2), -6 - 2 * sqrtf(2), 1 }));
-	vec2 WP[] = { {12, -8}, {15, 8}, {5,8}, {-22, -5}, {4, -2}, {-6, 9}, {18,88},{-22,-90} };
-	mat3 RES = translate(12, -8) * rotation(80);
-	for (int i = 0; i < 7; i++)
-	{
-		vec2 bet = WP[i + 1] - WP[i];
-		//mat3 R = rotation(angle(bet) - angle(RES[0].xy));
-		mat3 T = translate(magnitude(bet), 0);
-		/*??? RES = T * R * RES ???*/
-		//assert((RES[2].xy == WP[i + 1]));
-	}
+	//vec3 j = { 2,5,1 };
+	//vec3 r = translate(0, 3)*j;
+	//assert((scale(5, 1)* j == vec3{ 10,5,1 }));
+	//assert((rotation(deg2rad(90))*j == vec3{ -5,2,1 }));
+	//assert((translate(0, 3)*j == vec3{ 2,8,1 }));
+	//vec3 test = rotation(deg2rad(-90)) * translate(10, 0) * rotation(deg2rad(45)) * translate(4, 0) *rotation(deg2rad(45)) * translate(6, 4) * translate(-6, 0) * vec3 { 0, 0, 1 };
+	//assert((test == vec3{ 2 * sqrtf(2), -6 - 2 * sqrtf(2), 1 }));
+	//vec2 WP[] = { {12, -8}, {15, 8}, {5,8}, {-22, -5}, {4, -2}, {-6, 9}, {18,88},{-22,-90} };
+	//mat3 RES = translate(12, -8) * rotation(80);
 
 
 
-	Circle c = { 10, 0, 5 };
+
+	/*Circle c = { 10, 0, 5 };
 	assert((translate(4, 0) * c == Circle{ 4,0,5 }));
 
 	assert((scale(2, 1) * c == Circle{ 4,0,10 }));
@@ -120,10 +114,22 @@ int main()
 	AABB testA = { 1,2,3,4 };
 	assert((testA.min() == vec2{ -2,-2 }));
 	assert((testA.max() == vec2{ 4,6 }));
-
-	AABB testB = { 0,0,2,1 };
-	mat3 rot = rotation(deg2rad(90));
-	assert((rot*testB == AABB{ 0,0,1,2 }));
+*/
+	//AABB testB = { 0,0,2,1 };
+	//mat3 rot = rotation(deg2rad(90));
+	//assert((rot*testB == AABB{ 0,0,1,2 }));
 	
+	
+	assert(collisionDetection1D(0, 2, 1, 3).penetrationDepth == 1);
+	assert(collisionDetection1D(0, 2, 1, 3).result == true);
+
+	assert(sweptDetection1D(0, 1, 5, 3, 4, 0).entryTime == .4f);
+
+	AABB A = { 0,0,2,4 };
+	AABB B = { 2,2,2,4 };
+
+	assert(boxCollision(A, B).penetrationDepth == 2);
+	assert((boxCollision(A, B).collisionNormal == vec2{ 1,0 }));
+	assert((boxCollision(B, A).collisionNormal == vec2{ -1,0 }));
 	return 0;
 }
