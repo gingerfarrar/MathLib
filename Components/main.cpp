@@ -8,6 +8,7 @@
 #include "PlanetaryMotor.h"
 #include "PlanetaryRenderer.h"
 #include "SpaceshipRenderer.h"
+#include "shapedraw.h"
 using namespace sfw;
 
 void main()
@@ -23,7 +24,7 @@ void main()
     SpaceshipController playerCtrl;
 	SpaceshipLocomotion playerLoco;
 	SpaceshipRenderer playerRender;
-
+	Plane plane;
 	//sun
 	Transform sunTransform;	
 	sunTransform.m_position = vec2{ 800 / 2, 600 / 2 };	
@@ -91,10 +92,9 @@ void main()
 		
 		sunRenderer.draw(camera, sunTransform);
 		plan1renderer.draw(camera, plan1);
-		moon1renderer.draw(camera, moon1);
-
+		moon1renderer.draw(camera, moon1);		
 		playerRender.draw(camera, playerTransform);
-		
+		drawPlane(camera * playerTransform.getGlobalTransform() * Plane { 0, 0, 1, 0 }, WHITE);
 	  }
 	sfw::termContext();
 }

@@ -13,7 +13,14 @@ struct AABB
 	vec2 min() const;
 	vec2 max() const;
 };
-struct Plane {	};
+struct Plane 
+{
+	vec2 pos, dir;
+};
+
+Plane operator*(const mat3 &T, const Plane &P);
+bool operator==(const Plane &A, const Plane &B);
+
 struct Ray   {	};
 struct Hull  {	};
 Circle operator*(const mat3 &T, const Circle &C);

@@ -11,23 +11,7 @@
 #include "collision.h"
 int main()
 {
-	//assert(test_quad(0.f) == -7);
-	//assert(test_quad(-1) == -8);
-	//assert(test_quad(1) == -4);
-	////b
-	//quad_results res = quad(1, 0, 0);
-	//assert(quad(4, 1, -5).roots == 2);
-	////c
-	//assert(lerp(5, 6, 2) == 7);
-	////d
-	//assert(distance({ 0, 0 }, { 0, 0 }) == 0);
-	////e
-	//assert(inner({ 0, 0, 0}, { 0, 0, 0}) == 0);
-	////f
-	//assert(PP({ 0, 0, 1, 1 }, { 0, 2, 0 }) == 1);
-	////g
-	//assert(bezier(0, { 0,0,0 }, { 1,0,0 }, { 2,0,0 }, {3, 0, 0}).x == 0);
-	/////////////////////////////////////////////////////////////////////////
+	
 	////vector tests
 
 	//assert((vec2{ 0,0 } == vec2{ 0,0 }));
@@ -100,8 +84,6 @@ int main()
 	//mat3 RES = translate(12, -8) * rotation(80);
 
 
-
-
 	/*Circle c = { 10, 0, 5 };
 	assert((translate(4, 0) * c == Circle{ 4,0,5 }));
 
@@ -131,5 +113,31 @@ int main()
 	assert(boxCollision(A, B).penetrationDepth == 2);
 	assert((boxCollision(A, B).collisionNormal == vec2{ 1,0 }));
 	assert((boxCollision(B, A).collisionNormal == vec2{ -1,0 }));
+
+
+	AABB As = { 0,0,1,1 };
+	AABB Bs = { 0,10,1,1 };
+	assert(fequals(boxCollisionSwept(As, vec2{ 0,1 }, Bs, vec2{ 0,-1 }).entryTime, 4));
+	assert(fequals(boxCollisionSwept(As, vec2{ 0,-1 }, Bs, vec2{ 0,1 }).exitTime, -4));
+
+	AABB Bp = { 0,0,4,4 };
+
+	Plane P1 = { 0,0,0,1 };
+	Plane P2 = { 0,-10,0,1 };
+	Plane P3 = { 0, 10,0,1 };
+
+	Plane P4 = { vec2{6,6}, normal(vec2{-1,1}) };
+	Plane P5 = { vec2{ 6,6 }, normal(vec2{ -1,-1 }) };
+
+	Plane P6 = { 10,0,-1,0 };
+	assert(PlaneBoxCollision(P1, Bp).result());
+	assert(!PlaneBoxCollision(P2, Bp).result());
+	assert(PlaneBoxCollision(P3, Bp).result());
+	assert(PlaneBoxCollision(P4, Bp).result());
+	assert(!PlaneBoxCollision(P5, Bp).result());
+
+
+	assert(fequals(planeBoxCollisionSwept(P6, Bp, vec2{ 1,0 }).entryTime, 6.f));
+
 	return 0;
 }
