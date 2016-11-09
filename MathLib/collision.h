@@ -40,7 +40,7 @@ struct CollisionDataSwept
 	float penetrationDepth;
 	vec2 collisionNormal;
 
-	bool result() const;
+	bool result;
 	
 };
 
@@ -52,3 +52,5 @@ CollisionData PlaneBoxCollision(const Plane &P, const AABB &B);
 
 CollisionDataSwept planeBoxCollisionSwept
 						(const Plane &P, const AABB &B, const vec2 &Bvel);
+
+CollisionData HullCollision(const Hull &A, const Hull &B);

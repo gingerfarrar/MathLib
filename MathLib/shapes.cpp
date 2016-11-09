@@ -85,5 +85,30 @@ Ray operator*(const mat3 &T, const Ray &R)
 }
 Hull operator*(const mat3 &T, const Hull &H)
 {
-	return Hull();
+	Hull retval;
+	for (int i = 0; i < H.size; ++i)
+	{
+		retval.vertices[i] = (T *vec3{ H.vertices[i].x, H.vertices[i].y,1 }).xy;
+		retval.normals[i] = (T *vec3{ H.normals[i].x, H.normals[i].y,0 }).xy;
+	}
+	retval.size = H.size;
+	return retval;
 }
+bool operator==(const Hull & A, const Hull & B)
+{
+	return B.vertices == A.vertices && A.normals == B.normals;
+}
+Hull::Hull(const vec2 * a_vertices, unsigned a_size)
+{
+	size = a_size;
+	for (int i = 0; i < a_size; i++)
+	{
+		vertices[i] = a_vertices[i];
+		normals[i] = -perp(normal(a_vertices[(i + 1) % size] - a_vertices[i]));
+	}
+}
+
+Hull::Hull()
+{
+}
+
