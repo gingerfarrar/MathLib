@@ -142,6 +142,17 @@ vec2  catRomSpline(vec2 &start, vec2 &mid, vec2 &end, float alpha)
 	return point;
 }
 
+vec2 projection(const vec2 &I, const vec2 &N)
+{
+	return dot(I, normal(N)) * normal(N);
+}
+
+vec2 reflection(const vec2 & I, const vec2 & N)
+{
+
+	return I - 2*projection(I,N);
+}
+
 float vec2::operator[](unsigned idx) const
 {
 	return v[idx];
