@@ -9,21 +9,21 @@
 #include "PlanetaryRenderer.h"
 #include "SpaceshipRenderer.h"
 #include "shapedraw.h"
+#include "Collider.h"
 using namespace sfw;
 
 void main()
 {
-
 	float W = 800, H = 600;
 
-	sfw::initContext(W, H);
-
+	initContext(W, H);
+	
 	Transform playerTransform(400,300);
 	playerTransform.m_scale = vec2{ 20,30 };
 	Rigidbody playerRigidbody;
     SpaceshipController playerCtrl;
 	SpaceshipLocomotion playerLoco;
-	SpaceshipRenderer playerRender;
+	SpaceshipRenderer playerRender;	
 	Plane plane;
 	//sun
 	Transform sunTransform;	
@@ -33,25 +33,15 @@ void main()
 	sunMotor.m_rotationSpeed = 5;
 	PlanetaryRenderer sunRenderer(YELLOW, 100);
 
-	//planet
-	Transform plan1;
-	plan1.m_position = vec2{ 150, 0 };
-	plan1.m_parent = &sunTransform;
-	Rigidbody plan1RB;
-	PlanetaryMotor plan1motor;
-	plan1motor.m_rotationSpeed = 5;
-	PlanetaryRenderer plan1renderer(GREEN, 20);
-
-	//moon
-	Transform moon1;
-	moon1.m_position = vec2{ 50, 0 };
-	moon1.m_parent = &plan1;
-	Rigidbody moon1RB;
-	PlanetaryMotor moon1motor;
-	moon1motor.m_rotationSpeed = 5;
-	PlanetaryRenderer moon1renderer(WHITE, 7);
-
 	vec2 cameraPosition = vec2{ 0,0 };
+	vec2 hullVrts[] = { {-1,1}, {-1,-1}, {2,0}};
+
+	Transform occluderTransform(10, 10);
+	occluderTransform.m_scale = vec2{ 20,30 };
+	Collider occluderCollider(hullVrts, 3);
+
+	Collider playerCollider(hullVrts, 3);
+
 	while (stepContext())
 	{	
 		float deltaTime = getDeltaTime();
@@ -66,13 +56,22 @@ void main()
 		playerRigidbody.integrate(playerTransform, deltaTime);
 
 		sunMotor.update(sunRbody);
-		plan1motor.update(plan1RB);
-		moon1motor.update(moon1RB);
+		CollisionData results = ColliderCollision(playerTransform, playerCollider,
+													occluderTransform,occluderCollider);
 
 		playerRigidbody.integrate(playerTransform, deltaTime);
-		moon1RB.integrate(moon1, deltaTime);
-		plan1RB.integrate(plan1, deltaTime);
+		
 		sunRbody.integrate(sunTransform, deltaTime);
+
+		if (results.penetrationDepth >= 0)
+		{
+			vec2 mtv = results.penetrationDepth * results.collisionNormal;
+			vec3 mtv3 = { mtv.x, mtv.y,1 };
+			
+			mtv3 = inverse(playerTransform.getGlobalTransform()) * mtv3;
+			mtv = mtv3.xy;
+		}
+
 
 		//camera shit
 		vec2 gp = playerTransform.getGlobalPosition();
@@ -85,16 +84,16 @@ void main()
 
 		playerTransform.debugDraw(camera);
 		sunTransform.debugDraw(camera);
-		plan1.debugDraw(camera);
-		moon1.debugDraw(camera);
 
 		playerRigidbody.debugDraw(camera, playerTransform);
 		
 		sunRenderer.draw(camera, sunTransform);
-		plan1renderer.draw(camera, plan1);
-		moon1renderer.draw(camera, moon1);		
+		occluderTransform.debugDraw(camera);
+		occluderCollider.DebugDraw(camera, occluderTransform);
 		playerRender.draw(camera, playerTransform);
 		drawPlane(camera * playerTransform.getGlobalTransform() * Plane { 0, 0, 1, 0 }, WHITE);
-	  }
+	 
+		playerCollider.DebugDraw(camera, playerTransform);
+	}
 	sfw::termContext();
 }

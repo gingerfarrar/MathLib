@@ -53,7 +53,7 @@ CollisionData boxCollision(const AABB & A, const AABB & B)
 	else
 	{
 		retval.penetrationDepth = YCD.penetrationDepth;
-		retval.collisionNormal = vec2{ 0,1 } *YCD.collisionNormal;
+		retval.collisionNormal = vec2{ 1,0 } *YCD.collisionNormal;
 	}
 	return retval;
 }
