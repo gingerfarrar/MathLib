@@ -60,7 +60,7 @@ CollisionData ColliderCollision(const Transform & AT, const Collider & AC,
 }
 
 CollisionData StaticCollision( Transform &AT, Rigidbody &AR, const Collider &AC,
-							  const Transform &BT, const Collider &BC)
+							  const Transform &BT, const Collider &BC, float bounciness)
 {
 	CollisionData results = ColliderCollision(AT, AC, BT, BC);
 

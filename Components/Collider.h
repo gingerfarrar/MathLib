@@ -19,8 +19,10 @@ CollisionData ColliderCollision(const Transform &AT, const Collider &AC,
 								const Transform &BT, const Collider &BC);
 
 CollisionData StaticCollision( Transform &AT, Rigidbody &AR, const Collider &AC,
-								const Transform &BT, const Collider &BC);
+								const Transform &BT, const Collider &BC, 
+									float bounciness = 1);
 
 CollisionData DynamicCollision( Transform &AT, Rigidbody &AR, const Collider &AC,
-							    Transform &BT, Rigidbody &BR, const Collider &BC, float bounciness = 1);
+							    Transform &BT, Rigidbody &BR, const Collider &BC, 
+										float bounciness = 1);
 
