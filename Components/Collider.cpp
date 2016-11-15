@@ -58,3 +58,43 @@ CollisionData ColliderCollision(const Transform & AT, const Collider & AC,
 	
 	return retval;
 }
+
+CollisionData StaticCollision( Transform &AT, Rigidbody &AR, const Collider &AC,
+							  const Transform &BT, const Collider &BC)
+{
+	CollisionData results = ColliderCollision(AT, AC, BT, BC);
+
+	if (results.penetrationDepth >= 0)
+	{
+		vec2 mtv = results.penetrationDepth * results.collisionNormal;
+		AT.m_position -= mtv;
+		AR.velocity = reflection(AR.velocity, results.collisionNormal);
+	}
+	return results;
+}
+
+CollisionData DynamicCollision(Transform & AT, Rigidbody & AR, const Collider & AC, 
+				Transform & BT, Rigidbody & BR, const Collider & BC, float bounciness)
+{
+	CollisionData results = ColliderCollision(AT, AC, BT, BC);
+	if (results.penetrationDepth >= 0)
+	{
+
+		vec2 mtv = results.penetrationDepth * results.collisionNormal;
+		AT.m_position -= mtv / 2;
+		BT.m_position += mtv / 2;
+
+
+		vec2 &avel = AR.velocity;
+		float &Amass = AR.mass;
+		vec2 x;
+		vec2 &bvel = BR.velocity;
+		float &Bmass = BR.mass;
+		vec2 y;
+		x = (avel*Amass + bvel*Bmass + (-bounciness*(avel - bvel))*Bmass) / (Bmass + Amass);
+		y = bounciness*(avel - bvel) +(avel*Amass + bvel*bvel +
+			(-bounciness*(avel - bvel))*Bmass) / (Bmass + Amass);
+	
+	}
+	return results;
+}

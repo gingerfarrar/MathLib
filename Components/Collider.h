@@ -2,6 +2,7 @@
 #include "shapes.h"
 #include "collision.h"
 #include "Transform.h"
+#include "Rigidbody.h"
 
 class Collider
 {
@@ -16,4 +17,10 @@ public:
 
 CollisionData ColliderCollision(const Transform &AT, const Collider &AC,
 								const Transform &BT, const Collider &BC);
+
+CollisionData StaticCollision( Transform &AT, Rigidbody &AR, const Collider &AC,
+								const Transform &BT, const Collider &BC);
+
+CollisionData DynamicCollision( Transform &AT, Rigidbody &AR, const Collider &AC,
+							    Transform &BT, Rigidbody &BR, const Collider &BC, float bounciness = 1);
 

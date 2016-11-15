@@ -66,6 +66,13 @@ mat3 Transform::getLocalTransform() const
 	return T*R*S;
 }
 
+//mat3 Transform::getWorldToLocal() const
+//{
+//	if(m_parent)
+//		return inverse(m_parent)
+//	return mat3();
+//}
+
 void Transform::debugDraw(const mat3 &T) const
 {
 	

@@ -25,6 +25,6 @@ public:
 
 	mat3 getGlobalTransform() const;
 	mat3 getLocalTransform() const;
-
+	mat3 getWorldToLocal() const;
 	void debugDraw(const mat3 &T = mat3Identity())const;
 };

@@ -36,10 +36,10 @@ void main()
 	vec2 cameraPosition = vec2{ 0,0 };
 	vec2 hullVrts[] = { {-1,1}, {-1,-1}, {2,0}};
 
-	Transform occluderTransform(10, 10);
+	Transform occluderTransform(200, 300);
 	occluderTransform.m_scale = vec2{ 20,30 };
 	Collider occluderCollider(hullVrts, 3);
-
+	Rigidbody occluderRigidbody;
 	Collider playerCollider(hullVrts, 3);
 
 	while (stepContext())
@@ -56,22 +56,10 @@ void main()
 		playerRigidbody.integrate(playerTransform, deltaTime);
 
 		sunMotor.update(sunRbody);
-		CollisionData results = ColliderCollision(playerTransform, playerCollider,
-													occluderTransform,occluderCollider);
-
-		playerRigidbody.integrate(playerTransform, deltaTime);
-		
 		sunRbody.integrate(sunTransform, deltaTime);
 
-		if (results.penetrationDepth >= 0)
-		{
-			vec2 mtv = results.penetrationDepth * results.collisionNormal;
-			vec3 mtv3 = { mtv.x, mtv.y,1 };
-			
-			mtv3 = inverse(playerTransform.getGlobalTransform()) * mtv3;
-			mtv = mtv3.xy;
-		}
-
+		StaticCollision(playerTransform, playerRigidbody, playerCollider,
+							occluderTransform, occluderCollider);
 
 		//camera shit
 		vec2 gp = playerTransform.getGlobalPosition();
@@ -86,7 +74,10 @@ void main()
 		sunTransform.debugDraw(camera);
 
 		playerRigidbody.debugDraw(camera, playerTransform);
-		
+		occluderRigidbody.integrate(occluderTransform, deltaTime);
+
+		DynamicCollision(playerTransform, playerRigidbody, playerCollider,
+						occluderTransform, occluderRigidbody, occluderCollider);
 		sunRenderer.draw(camera, sunTransform);
 		occluderTransform.debugDraw(camera);
 		occluderCollider.DebugDraw(camera, occluderTransform);
