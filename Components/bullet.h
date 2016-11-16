@@ -3,17 +3,19 @@
 #include "Collider.h"
 #include "Rigidbody.h"
 
-class Asteroid
+class Bullet
 {
 public:
 	Transform			transform;
 	Collider			collider;
 	Rigidbody			rigidbody;
 
-	
-	Asteroid();
+	float timer;
+	bool isAlive;
 
-	void update(float deltaTime, class GameState &gs);
+	Bullet();
+
+	void update(float deltaTime,class GameState &gs);
+
 	void draw(const mat3 &camera);
 };
-

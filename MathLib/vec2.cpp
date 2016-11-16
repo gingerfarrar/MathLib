@@ -53,6 +53,10 @@ vec2 &operator*=(vec2 &lhs, const vec2 &rhs)
 {
 	return lhs = lhs * rhs;
 }
+vec2 & operator*=(vec2 & lhs, float rhs)
+{
+	return lhs = lhs * rhs;
+}
 vec2 &operator/=(vec2 &lhs, const vec2 &rhs)
 {
 	return lhs = lhs / rhs;

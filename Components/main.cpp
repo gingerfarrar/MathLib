@@ -12,7 +12,8 @@ void main()
 
 	while (stepContext())
 	{	
-		
+
+
 		float dt = getDeltaTime();
 		game.update(dt);
 		game.draw();
