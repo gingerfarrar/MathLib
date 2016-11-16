@@ -1,15 +1,5 @@
 #include "sfwdraw.h"
-#include "vec2.h"
-#include "Transform.h"
-#include "flops.h"
-#include "Rigidbody.h"
-#include "SpaceshipLocomotion.h"
-#include "SpaceshipController.h"
-#include "PlanetaryMotor.h"
-#include "PlanetaryRenderer.h"
-#include "SpaceshipRenderer.h"
-#include "shapedraw.h"
-#include "Collider.h"
+#include "GameState.h"
 using namespace sfw;
 
 void main()
@@ -18,73 +8,15 @@ void main()
 
 	initContext(W, H);
 	
-	Transform playerTransform(400,300);
-	playerTransform.m_scale = vec2{ 20,30 };
-	Rigidbody playerRigidbody;
-    SpaceshipController playerCtrl;
-	SpaceshipLocomotion playerLoco;
-	SpaceshipRenderer playerRender;	
-	Plane plane;
-	//sun
-	Transform sunTransform;	
-	sunTransform.m_position = vec2{ 800 / 2, 600 / 2 };	
-	Rigidbody sunRbody;
-	PlanetaryMotor sunMotor;
-	sunMotor.m_rotationSpeed = 5;
-	PlanetaryRenderer sunRenderer(YELLOW, 100);
-
-	vec2 cameraPosition = vec2{ 0,0 };
-	vec2 hullVrts[] = { {-1,1}, {-1,-1}, {2,0}};
-
-	Transform occluderTransform(200, 300);
-	occluderTransform.m_scale = vec2{ 20,30 };
-	Collider occluderCollider(hullVrts, 3);
-	Rigidbody occluderRigidbody;
-	Collider playerCollider(hullVrts, 3);
+	GameState game;
 
 	while (stepContext())
 	{	
-		float deltaTime = getDeltaTime();
-	
-		if (playerTransform.m_position.x < 0)		playerTransform.m_position.x = W;
-		else if (playerTransform.m_position.x > W)	playerTransform.m_position.x = 0;
-		if (playerTransform.m_position.y < 0)		playerTransform.m_position.y = H;
-		else if (playerTransform.m_position.y > H)	playerTransform.m_position.y = 0;
-
-		playerCtrl.update(playerLoco);
-		playerLoco.update(playerTransform, playerRigidbody);
-		playerRigidbody.integrate(playerTransform, deltaTime);
-
-		sunMotor.update(sunRbody);
-		sunRbody.integrate(sunTransform, deltaTime);
-
-		StaticCollision(playerTransform, playerRigidbody, playerCollider,
-							occluderTransform, occluderCollider);
-
-		//camera shit
-		vec2 gp = playerTransform.getGlobalPosition();
-		cameraPosition = lerp(cameraPosition, gp, 1); // TODO: add smoothing.
 		
-		mat3 proj = translate(W / 2, H / 2) * scale(1, 1); 
-		mat3 view = inverse(translate(cameraPosition.x, cameraPosition.y));		
+		float dt = getDeltaTime();
+		game.update(dt);
+		game.draw();
 
-		mat3 camera = proj * view;
-
-		playerTransform.debugDraw(camera);
-		sunTransform.debugDraw(camera);
-
-		playerRigidbody.debugDraw(camera, playerTransform);
-		occluderRigidbody.integrate(occluderTransform, deltaTime);
-
-		DynamicCollision(playerTransform, playerRigidbody, playerCollider,
-						occluderTransform, occluderRigidbody, occluderCollider);
-		sunRenderer.draw(camera, sunTransform);
-		occluderTransform.debugDraw(camera);
-		occluderCollider.DebugDraw(camera, occluderTransform);
-		playerRender.draw(camera, playerTransform);
-		drawPlane(camera * playerTransform.getGlobalTransform() * Plane { 0, 0, 1, 0 }, WHITE);
-	 
-		playerCollider.DebugDraw(camera, playerTransform);
 	}
 	sfw::termContext();
 }

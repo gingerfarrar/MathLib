@@ -1,7 +1,11 @@
 #include "Collider.h"
 #include "shapedraw.h"
 #include <cmath>
-Collider::Collider(const vec2 * verts, int size) 
+Collider::Collider()
+{
+
+}
+Collider::Collider(const vec2 * verts, int size)
 				: hull(verts,size)
 {
 	float minx = INFINITY;
