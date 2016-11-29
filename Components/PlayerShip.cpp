@@ -20,7 +20,6 @@ void PlayerShip::update(float deltaTime, GameState & gs)
 	{
 
 		gs.bullet.timer = 2.f;
-
 		
 		gs.bullet.transform.m_position = transform.m_position;
 		gs.bullet.transform.m_facing = transform.m_facing;

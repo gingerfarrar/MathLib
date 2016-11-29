@@ -122,7 +122,9 @@
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Depart.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="Lose.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectCollision.cpp" />
     <ClCompile Include="PlanetaryMotor.cpp" />
@@ -133,14 +135,19 @@
     <ClCompile Include="SpaceshipController.cpp" />
     <ClCompile Include="SpaceshipLocomotion.cpp" />
     <ClCompile Include="SpaceshipRenderer.cpp" />
+    <ClCompile Include="Splash.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Win.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Asteroid.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="constdecl.h" />
+    <ClInclude Include="Depart.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="Lose.h" />
     <ClInclude Include="ObjectCollision.h" />
     <ClInclude Include="PlanetaryMotor.h" />
     <ClInclude Include="PlanetaryRenderer.h" />
@@ -150,7 +157,9 @@
     <ClInclude Include="SpaceshipController.h" />
     <ClInclude Include="SpaceshipLocomotion.h" />
     <ClInclude Include="SpaceshipRenderer.h" />
+    <ClInclude Include="Splash.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Win.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

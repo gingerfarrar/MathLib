@@ -10,6 +10,8 @@ public:
 	Collider			collider;
 	Rigidbody			rigidbody;
 
+	float timer;
+	bool isAlive;
 	
 	Asteroid();
 

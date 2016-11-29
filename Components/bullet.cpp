@@ -1,7 +1,5 @@
 #include "bullet.h"
 
-
-
 Bullet::Bullet()
 {
 	timer = 0;

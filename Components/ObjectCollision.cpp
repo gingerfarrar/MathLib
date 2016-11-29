@@ -1,4 +1,5 @@
 #include "ObjectCollision.h"
+using namespace sfw;
 void PlayerAsteroidCollision(PlayerShip & player, Asteroid & as)
 {
 	CollisionData result =
@@ -8,10 +9,9 @@ void PlayerAsteroidCollision(PlayerShip & player, Asteroid & as)
 	if (result.penetrationDepth >= 0)
 	{
 		
-		//player.transform.m_scale *= .9f;
+		player.transform.m_scale *= .9f;
 	}
 }
-
 
 void AsteroidCollision(Asteroid & as1, Asteroid & as2)
 {
@@ -21,7 +21,7 @@ void AsteroidCollision(Asteroid & as1, Asteroid & as2)
 
 void BulletAsteroidCollision(Bullet & b, Asteroid & a)
 {
-	if (!b.isAlive) return;
+	if (!b.isAlive && !a.isAlive) return;
 
 	
 	CollisionData result =
@@ -31,7 +31,7 @@ void BulletAsteroidCollision(Bullet & b, Asteroid & a)
 
 	if (result.penetrationDepth >= 0)
 	{
-		
+		a.timer = 0;
 		b.timer = 0;
 	}
 }

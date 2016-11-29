@@ -66,12 +66,7 @@ mat3 Transform::getLocalTransform() const
 	return T*R*S;
 }
 
-//mat3 Transform::getWorldToLocal() const
-//{
-//	if(m_parent)
-//		return inverse(m_parent)
-//	return mat3();
-//}
+
 
 void Transform::debugDraw(const mat3 &T) const
 {
@@ -82,12 +77,5 @@ void Transform::debugDraw(const mat3 &T) const
 	vec3 right = L*vec3{ 2,0,1 };
 	vec3 up    = L*vec3{ 0,2,1 };
 	
-	//drawLine(pos.x, pos.y, right.x, right.y,MAGENTA);
-	//drawLine(pos.x, pos.y, up.x, up.y, GREEN);
-	//vec3 sgp = m_parent ? T * m_parent->getGlobalTransform()[2] : pos;	
-	//drawLine(sgp.x, sgp.y, pos.x, pos.y, BLUE);
-
 	
-	
-	//drawCircle(pos.x, pos.y, 1, 1, 0x888888FF);
 }
